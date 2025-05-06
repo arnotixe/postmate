@@ -2,5 +2,17 @@
   "extends": "dollarshaveclub",
   "rules": {
     "import/no-duplicates": 0,
+    "quotes": [
+      "error",
+      "double"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "func-names": [
+      "error",
+      "never"
+    ]
   }
 }
