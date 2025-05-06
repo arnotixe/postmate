@@ -8,6 +8,7 @@
 > It has been 7 years since the last release over there, and I needed to add:
 
 - **allow** attribute on iframe [see original PR](https://github.com/dollarshaveclub/postmate/pull/241)
+- Typescript types
 
 [![npm][npm-image]][npm-url]
 [![CircleCI](https://circleci.com/gh/dollarshaveclub/postmate.svg?style=svg)](https://circleci.com/gh/dollarshaveclub/postmate)
