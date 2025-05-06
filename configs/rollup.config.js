@@ -1,77 +1,73 @@
-import {
-  babelSetup,
-  banner,
-} from '../configs/config'
-import babel from 'rollup-plugin-babel'
-import replace from 'rollup-plugin-replace'
-import { uglify } from 'rollup-plugin-uglify'
-import pkg from '../package.json'
+import { babelSetup, banner } from "../configs/config";
+import babel from "rollup-plugin-babel";
+import replace from "rollup-plugin-replace";
+import { uglify } from "rollup-plugin-uglify";
+import pkg from "../package.json";
 
-const ensureArray = maybeArr => Array.isArray(maybeArr) ? maybeArr : [maybeArr]
+const ensureArray = (maybeArr) =>
+  Array.isArray(maybeArr) ? maybeArr : [maybeArr];
 
 const uglifyOutput = {
   output: {
-    comments: function (node, comment) { // eslint-disable-line func-names
-      const text = comment.value
-      const type = comment.type
-      if (type === 'comment2') {
+    comments: function (node, comment) {
+      // eslint-disable-line func-names
+      const text = comment.value;
+      const type = comment.type;
+      if (type === "comment2") {
         // multiline comment
-        return /@preserve|@license|@cc_on/i.test(text)
+        return /@preserve|@license|@cc_on/i.test(text);
       }
     },
   },
-}
+};
 
 const createConfig = ({ output, env } = {}) => {
-  const umd = output.format === 'umd'
+  const umd = output.format === "umd";
 
-  if (umd && typeof env === 'undefined') {
-    throw new Error('You need to specify `env` when using umd format.')
+  if (umd && typeof env === "undefined") {
+    throw new Error("You need to specify `env` when using umd format.");
   }
 
-  const min = umd && env === 'production'
+  const min = umd && env === "production";
 
   return {
-    input: 'src/index.js',
+    input: "src/index.js",
     plugins: [
       babel(babelSetup),
-      env && replace({
-        'process.env.NODE_ENV': JSON.stringify(env),
-      }),
+      env &&
+        replace({
+          "process.env.NODE_ENV": JSON.stringify(env),
+        }),
       min && uglify(uglifyOutput),
     ].filter(Boolean),
-    output: ensureArray(output).map(format =>
-      Object.assign(
-        {},
-        format,
-        {
-          banner,
-          name: 'Postmate',
-        }
-      )
+    output: ensureArray(output).map((format) =>
+      Object.assign({}, format, {
+        banner,
+        name: "Postmate",
+      })
     ),
-  }
-}
+  };
+};
 
 export default [
   createConfig({
     output: [
-      { file: pkg.main, format: 'cjs' },
-      { file: pkg.module, format: 'es' },
+      { file: pkg.main, format: "cjs" },
+      { file: pkg.module, format: "es" },
     ],
   }),
   createConfig({
     output: {
-      file: 'build/postmate.min.js',
-      format: 'umd',
+      file: "dist/postmate.min.js",
+      format: "umd",
     },
-    env: 'production',
+    env: "production",
   }),
   createConfig({
     output: {
-      file: 'build/postmate.dev.js',
-      format: 'umd',
+      file: "dist/postmate.dev.js",
+      format: "umd",
     },
-    env: 'development',
+    env: "development",
   }),
-]
+];

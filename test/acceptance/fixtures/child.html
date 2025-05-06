@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <style>
@@ -10,33 +10,44 @@
     </style>
   </head>
   <body>
-
     <script>
-      window.onerror = function () { console.log.apply(console, arguments); };
+      window.onerror = function () {
+        console.log.apply(console, arguments);
+      };
     </script>
     <script src="../../node_modules/rsvp/dist/rsvp.min.js"></script>
-    <script type="text/javascript" src="../../build/postmate.min.js"></script>
-    <script>Postmate.Promise = RSVP.Promise;</script>
+    <script type="text/javascript" src="../../dist/postmate.min.js"></script>
+    <script>
+      Postmate.Promise = RSVP.Promise;
+    </script>
     <script type="text/javascript">
       var parentAPI = null;
-      var height = function () { return document.height || document.body.offsetHeight; };
+      var height = function () {
+        return document.height || document.body.offsetHeight;
+      };
       var foo = "foo";
       var randomId = null;
       var doValidate = function () {
         setTimeout(function () {
-          parentAPI.emit('validated', parentAPI.model.uid);
+          parentAPI.emit("validated", parentAPI.model.uid);
         }, 200);
       };
-      var a = function () { return 'a'; };
+      var a = function () {
+        return "a";
+      };
       var b = function () {
         return new RSVP.Promise(function (resolve, reject) {
           setTimeout(function () {
-            resolve('b');
+            resolve("b");
           }, 300);
         });
       };
-      var setRandomId = function (data) { randomId = data; };
-      var getRandomId = function () { return randomId; };
+      var setRandomId = function (data) {
+        randomId = data;
+      };
+      var getRandomId = function () {
+        return randomId;
+      };
 
       new Postmate.Model({
         height: height,
@@ -48,9 +59,10 @@
         getRandomId: getRandomId,
         setFoo: function (foo) {
           this.foo = foo;
-        }
-      })
-      .then(function (parent) { parentAPI = parent; });
+        },
+      }).then(function (parent) {
+        parentAPI = parent;
+      });
     </script>
   </body>
 </html>

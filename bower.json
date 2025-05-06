@@ -5,7 +5,7 @@
     "Jacob Kelley <jakie8@gmail.com>"
   ],
   "description": "A powerful, simple, promise-based postMessage library",
-  "main": "build/postmate.min.js",
+  "main": "dist/postmate.min.js",
   "keywords": [
     "postMessage",
     "secure",

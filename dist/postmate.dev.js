@@ -1,7 +1,7 @@
 /**
-  postmate - A powerful, simple, promise-based postMessage library
-  @version v1.6.0
-  @link https://github.com/dollarshaveclub/postmate
+  @arnotixe.dev/postmate - A powerful, simple, promise-based postMessage library
+  @version v1.6.1
+  @link https://github.com/arnotixe/postmate
   @author Jacob Kelley <jakie8@gmail.com>
   @license MIT
 **/
@@ -67,18 +67,25 @@
     emit: 1,
     reply: 1,
     request: 1
-    /**
-     * Ensures that a message is safe to interpret
-     * @param  {Object} message The postmate message being sent
-     * @param  {String|Boolean} allowedOrigin The whitelisted origin or false to skip origin check
-     * @return {Boolean}
-     */
-
   };
+  /**
+   * Ensures that a message is safe to interpret
+   * @param  {Object} message The postmate message being sent
+   * @param  {String|Boolean} allowedOrigin The whitelisted origin or false to skip origin check
+   * @return {Boolean}
+   */
+
   var sanitize = function sanitize(message, allowedOrigin) {
-    if (typeof allowedOrigin === 'string' && message.origin !== allowedOrigin) return false;
+    if (typeof allowedOrigin === 'string' && message.origin !== allowedOrigin) {
+      return false;
+    }
+
     if (!message.data) return false;
-    if (typeof message.data === 'object' && !('postmate' in message.data)) return false;
+
+    if (typeof message.data === 'object' && !('postmate' in message.data)) {
+      return false;
+    }
+
     if (message.data.type !== messageType) return false;
     if (!messageTypes[message.data.postmate]) return false;
     return true;
@@ -281,7 +288,7 @@
     return ChildAPI;
   }();
   /**
-    * The entry point of the Parent.
+   * The entry point of the Parent.
    * @type {Class}
    */
 
@@ -302,12 +309,14 @@
           model = _ref2.model,
           url = _ref2.url,
           name = _ref2.name,
+          allow = _ref2.allow,
           _ref2$classListArray = _ref2.classListArray,
           classListArray = _ref2$classListArray === void 0 ? [] : _ref2$classListArray;
       // eslint-disable-line no-undef
       this.parent = window;
       this.frame = document.createElement('iframe');
-      this.frame.name = name || '';
+      if (name) this.frame.name = name;
+      if (allow) this.frame.allow = allow;
       this.frame.classList.add.apply(this.frame.classList, classListArray);
       container.appendChild(this.frame);
       this.child = this.frame.contentWindow || this.frame.contentDocument.parentWindow;

@@ -18,7 +18,7 @@
 
 _Postmate_ is a promise-based API built on `postMessage`. It allows a parent page to speak with a child `iFrame` across origins with minimal effort.
 
-You can download the compiled javascript directly [here](/build/postmate.min.js)
+You can download the compiled javascript directly [here](/dist/postmate.min.js)
 
 - [Features](#features)
 - [Installing](#installing)
